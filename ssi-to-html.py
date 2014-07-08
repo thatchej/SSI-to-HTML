@@ -31,7 +31,7 @@ if (user_input == 'y' or user_input == 'Y'):
 	errors = open('errors.txt', 'w')
 	changed=0
 	i=0
-
+	error_count = 0
 	print "Working ",
 	sys.stdout.flush()
 
@@ -53,27 +53,29 @@ if (user_input == 'y' or user_input == 'Y'):
 						if (current_ssi_path[0]) == '/':	
 							#absolute path
 							to_include = [line for line in open(os.path.expanduser('~/Scripts/includes/std-docs' + current_ssi_path))] #local
+							changed += 1
 						else:
 							#relative path
 							to_include = [line for line in open(subdir + '/' + current_ssi_path)]
+							changed += 1
 
 						ssi_code = ''.join(str(i) for i in to_include)
 						tmp = tmp.replace(ssi_call, '\n<!-- REPLACEMENT OF ' + current_ssi_path + ' -->\n' + ssi_code + '<!-- END REPLACEMENT OF ' + current_ssi_path + ' -->\n')
-						changed += 1
-
-
+						
 					except:
 						errors.write("FAILED TO REPLACE " + current_ssi_path + ' INTO ' + full_path_to_html + '\n\n')
+						error_count += 1
 
 				new_file = open(full_path_to_html, 'w')
 				new_file.write(tmp)
 
-			if (i%900) == 0:
+			if (i%1500) == 0:
 				#loading bar stuff
-				print '#',
+				print '\b=',
 				sys.stdout.flush()
 			i += 1
 
-	print " Done!"
+	print "> Done!"
 	print "HTML Files changed: " + str(changed)
-	print "Time Taken: " + str(time.time() - start_time)
+	print "Errors: " + str(error_count)
+	print "Time Taken: " + str(int(time.time() - start_time)) + ' seconds'
