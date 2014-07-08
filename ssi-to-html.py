@@ -4,7 +4,7 @@
 #Functions as an alternative to the server side include mechanism, but does it
 #statically instead of dynamically
 #
-#Author: Jaron Thatcer
+#Author: Jaron Thatcher
 #Date: July 7, 2014
 
 import os
