@@ -60,7 +60,7 @@ if (user_input == 'y' or user_input == 'Y'):
 							changed += 1
 
 						ssi_code = ''.join(str(i) for i in to_include)
-						tmp = tmp.replace(ssi_call, '\n<!-- REPLACEMENT OF ' + current_ssi_path + ' -->\n' + ssi_code + '<!-- END REPLACEMENT OF ' + current_ssi_path + ' -->\n')
+						tmp = tmp.replace(ssi_call, ssi_code)
 						
 					except:
 						errors.write("FAILED TO REPLACE " + current_ssi_path + ' INTO ' + full_path_to_html + '\n\n')
